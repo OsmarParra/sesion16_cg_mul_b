@@ -43,6 +43,47 @@
 	  	var colorGd = new THREE.Color( 0x66AA66 );
 	  	var colorBd = new THREE.Color( 0x6666AA );
 		  
+
+    const ejesXYZ = new THREE.AxesHelper( 100);
+    scene.add( ejesXYZ );
+
+    function cono(creacion){  //Creación del cono
+// en esta creacion declaramos la cantidad de lados de nuestro cono, la altura,
+// y el diametro. y creamos la posicion original
+
+        var altura;
+        var diametro =2;
+        var lados = 10;
+            if (creacion==false){
+            altura =1;
+               }
+                else {
+          altura =3;
+           }
+
+        var coneGeometry = new THREE.ConeGeometry(diametro,altura,lados);
+        var basicMaterial = new THREE.MeshLambertMaterial({color: 0xEAEFF2});
+        var cone = new THREE.Mesh(coneGeometry, basicMaterial);
+
+        scene.add(cone);
+        cone.rotation.set(Math.PI/2, 0, 0);
+        cone.position.z=altura/2;
+         camera.lookAt(0,0,0);
+
+}
+
+    cono(true);
+
+    
+    var light = new THREE.PointLight(0xFFFFFF);
+    light.position.set(-5,10,15);
+    scene.add(light);
+    function render() { // Función para renderizar
+        requestAnimationFrame(render); // Se llama al render
+        renderer.render(scene, camera); // Se renderiza la escena y la camara
+
+    }
+
 	  	//CREAR LAS GRILLAS PARA EL ESCENARIO
 	  	var axesHelper = new THREE.AxesHelper( size );
 	  	var gridHelperXY = new THREE.GridHelper( size, divisions, color1, color1);
@@ -59,11 +100,7 @@
       var arrowY = new THREE.ArrowHelper( y, origin, arrowSize, colorG );
       var arrowZ = new THREE.ArrowHelper( z, origin, arrowSize, colorB );
       
-      var material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
-      var geometry = new THREE.CubeGeometry(2, 2, 2);
-      // Create the final object to add to the scene
-      var boxObject = new THREE.Mesh( geometry, material );
-      scene.add( boxObject );
+
                
 	  	//AGREGAR A LA ESCENA
       scene.add( gridHelperXZ );
